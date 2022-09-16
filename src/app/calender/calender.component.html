@@ -1,0 +1,17 @@
+<div class="mx-3 my-3">
+  <mat-grid-list cols="{{gridlistcols}}" rowHeight="3:1">
+    <mat-grid-tile
+      *ngFor="let fenster of fensters"
+      [colspan]="fenster.cols"
+      [rowspan]="fenster.rows"
+      [style.background]="fenster.color">
+      <div>
+        <mat-card [style.background]="fenster.color">
+          <mat-card-content>
+            {{fenster.text}}
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
