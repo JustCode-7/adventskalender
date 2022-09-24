@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { CalenderServiceService } from '../calender-service.service';
-import { gOptions } from '../../resources/calendermap';
+import { CalenderServiceService } from '../service/calender-service.service';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {ImageDialogComponent} from "../dialog/image-dialog/image-dialog.component";
 
 export class Fenster {
   color!: string;
   cols!: number;
   rows!: number;
   text!: string;
+  imageHidden: boolean = true;
+  opacity: number = 0.1;
+  image!: string;
 }
 
 @Component({
@@ -19,7 +23,7 @@ export class CalenderComponent implements OnInit {
   localCalService!: CalenderServiceService;
   gridlistcols: string = '7';
 
-  constructor(calService: CalenderServiceService) {
+  constructor(calService: CalenderServiceService, public dialog: MatDialog) {
     this.localCalService = calService;
   }
 
@@ -30,19 +34,8 @@ export class CalenderComponent implements OnInit {
       if (i <= 24) {
         fenster.text = tag.toString();
         tag++;
-        fenster.cols = 2; //this.getRandomInt(3);
-        fenster.rows = 3; //this.getRandomInt(2);
-        if (i % 3 == 0) {
-          fenster.color = 'lightblue';
-        } else if (i % 4 == 0) {
-          fenster.color = 'lightgreen';
-        } else if (i % 5 == 0) {
-          fenster.color = 'lightpink';
-        } else if (i % 6 == 0) {
-          fenster.color = '#DDBDF1';
-        } else {
-          fenster.color = 'red';
-        }
+        fenster.cols = this.getRandomInt(3);
+        fenster.rows = this.getRandomInt(2);
       } else {
         fenster.cols = 1;
         fenster.rows = 1;
@@ -57,30 +50,41 @@ export class CalenderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initFensters();
-  }
-
-  private onlyShuffleAtNewYear(array: Fenster[]) {
-    if (this.localCalService.getCurrentYear() != gOptions.currentYear) {
-      this.localCalService.shuffle(array);
+    if(this.localCalService.parse() == null ){
+      this.initFensters();
     }
+    this.fensters = this.localCalService.parse();
   }
 
   private shuffleFenters(array: Fenster[]) {
-    if (gOptions.currentCalenderArr.length == 0) {
-      // JSON.stringify() to Persist !!!!
-
-      this.localCalService.shuffle(array);
-      console.error(JSON.stringify(array));
-      gOptions.currentCalenderArr = array;
-    } else if (
-      gOptions.currentCalenderArr.length == array.length &&
-      !gOptions.currentCalenderArr.every(
-        (value, index) => value === array[index]
-      )
-    ) {
-      this.onlyShuffleAtNewYear(array);
+     if (array.every(
+        (value, index) => value === array[index])) {
+       this.localCalService.shuffle(array);
     }
+    this.localCalService.stringify(array)
     this.fensters = array;
+  }
+
+
+  openWindow(fenster : Fenster) {
+    if(fenster.text != null){
+      fenster.imageHidden = false;
+      fenster.opacity = 1.0;
+      this.openDialog('3000ms', '1500ms');
+      // zufällig ein Bild auswählen und in fenster speichern.
+      // fenster.image = "https://material.angular.io/assets/img/examples/shiba2.jpg";
+      // fenster.image = "https://www.sprueche-und-wuensche.com/img/weihnachtssprueche.jpg";
+      fenster.image = "https://www.weihnachtsgedichte-sprueche.net/weihnachtssprueche/kurze/spruchbilder/kerzenbild-plaetzchen-text-unsereseele.jpg";
+      this.localCalService.stringify(this.fensters)
+
+    }
+  }
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(ImageDialogComponent, {
+      width: '40%',
+      height: '60%',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
   }
 }

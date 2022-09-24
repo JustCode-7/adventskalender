@@ -4,11 +4,12 @@
       *ngFor="let fenster of fensters"
       [colspan]="fenster.cols"
       [rowspan]="fenster.rows"
-      [style.background]="fenster.color">
+     >
       <div>
-        <mat-card [style.background]="fenster.color">
-          <mat-card-content>
+        <mat-card [style.opacity]="fenster.opacity" (click)="openWindow(fenster)">
+          <mat-card-content >
             {{fenster.text}}
+            <img [hidden]="fenster.imageHidden" mat-card-image src="{{fenster.image}}">
           </mat-card-content>
         </mat-card>
       </div>

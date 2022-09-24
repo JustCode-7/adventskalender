@@ -10,12 +10,15 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatGridListModule} from "@angular/material/grid-list";
 import { TitelComponent } from './titel/titel.component';
+import { ImageDialogComponent } from './dialog/image-dialog/image-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
     AppComponent,
     CalenderComponent,
-    TitelComponent
+    TitelComponent,
+    ImageDialogComponent
   ],
     imports: [
         BrowserModule,
@@ -25,6 +28,7 @@ import { TitelComponent } from './titel/titel.component';
         MatButtonModule,
         MatProgressBarModule,
         MatGridListModule,
+        MatDialogModule,
     ],
   providers: [],
   bootstrap: [AppComponent]

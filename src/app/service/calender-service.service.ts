@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Fenster } from './calender/calender.component';
+import { Fenster } from '../calender/calender.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CalenderServiceService {
+
   getCurrentYear() {
     return new Date().getFullYear();
   }
@@ -23,5 +24,14 @@ export class CalenderServiceService {
       arr[random] = temp;
     }
     return arr;
+  }
+
+
+  stringify(s : any){
+    localStorage.setItem(this.getCurrentYear().toString(), JSON.stringify(s));
+  }
+
+  parse(){
+   return JSON.parse(localStorage.getItem(this.getCurrentYear().toString())!);
   }
 }
