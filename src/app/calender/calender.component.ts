@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CalenderService } from '../service/calender.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ImageDialogComponent } from '../dialog/image-dialog/image-dialog.component';
@@ -29,17 +29,18 @@ export class CalenderComponent implements OnInit {
 
   initFensters() {
     let tag: number = 1;
-    for (let i = 1; i <= 28; i++) {
+    for (let i = 1; i <= 25; i++) {
       let fenster = new Fenster();
       if (i <= 24) {
         fenster.text = tag.toString();
         tag++;
         fenster.cols = this.getRandomInt(3);
         fenster.rows = this.getRandomInt(2);
-      } else {
-        fenster.cols = 1;
-        fenster.rows = 1;
       }
+      // else {
+      //   fenster.cols = 1;
+      //   fenster.rows = 1;
+      // }
       this.fensters.push(fenster);
     }
     this.shuffleFenters(this.fensters);
@@ -82,6 +83,13 @@ export class CalenderComponent implements OnInit {
     this.openDialog('3000ms', '1500ms', fenster);
   }
 
+  checkCurrentDay(fenster: Fenster) {
+    let dayToday = new Date().getDay();
+    if (Number.parseInt(fenster.text) == dayToday) {
+      //openFenster
+    }
+  }
+
   /**
    * hier braucht es noch eine geile Idee
    * um das so dynamisch wie möglich und ohne merkbare Wiederholung
@@ -92,8 +100,13 @@ export class CalenderComponent implements OnInit {
   private setPictures(fenster: Fenster) {
     let num = Number.parseInt(fenster.text);
     if (num == 24) {
+      //Weihnachten
       fenster.image =
         'https://cdn01.xn--weihnachtsgrsse24-e3b.de/files/theme/Bilder/Startseite/weihnachtsgruesse-neu.jpg';
+    } else if (num == 6) {
+      // nikolaus
+      fenster.image =
+        'https://www.weihnachtsgedichte-sprueche.net/weihnachtssprueche/kurze/spruchbilder/kerzenbild-plaetzchen-text-unsereseele.jpg';
     } else if (num % 2 == 0) {
       fenster.image =
         'https://www.weihnachtsgedichte-sprueche.net/weihnachtssprueche/kurze/spruchbilder/kerzenbild-plaetzchen-text-unsereseele.jpg';
@@ -116,5 +129,16 @@ export class CalenderComponent implements OnInit {
     }
     this.localCalService.stringify(array);
     this.fensters = array;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: { target: { innerWidth: any } }) {
+    let screenWidth = event.target.innerWidth;
+    if (screenWidth > 1000) {
+      //Testen was bei Tablets so üblich ist
+      console.log(event.target.innerWidth);
+      console.log('changed');
+      // ändere columns-anzahl
+    }
   }
 }

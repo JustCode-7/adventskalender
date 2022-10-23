@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'anvendtskalender-app';
   //TODO: change pic per year
-  backgroundUrl = '../assets/pics/baum.jpg';
+  backgroundUrl = '../assets/pics/HDpic.jpg';
 }

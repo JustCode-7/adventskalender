@@ -1,4 +1,9 @@
-<app-titel></app-titel>
-<div [ngStyle]="{'background-image': 'url('+backgroundUrl+')'}" class="p-3">
+<div
+  [ngStyle]="{
+    'background-image': 'url(' + backgroundUrl + ')'
+  }"
+  class="background-img p-3 w-100 h-100"
+>
+  <app-titel></app-titel>
   <app-calender></app-calender>
 </div>
