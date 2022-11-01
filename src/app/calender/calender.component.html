@@ -1,33 +1,31 @@
-<div class="mx-3 my-3">
-  <mat-grid-list cols="{{ gridlistcols }}" rowHeight="3:1">
-    <div class="p-3 d-flex justify-content-sm-center">
-      <mat-grid-tile
-        *ngFor="let fenster of fensters"
-        [colspan]="fenster.cols"
-        [rowspan]="fenster.rows"
-      >
-        <div *ngIf="!fenster.open; else fensterOpen">
-          <button
-            class="colorWhite"
-            mat-stroked-button
-            (click)="openWindow(fenster)"
-            mat-button
-          >
-            {{ fenster.text }}
-          </button>
+<div class="mx-3 my-3 justify-content-center">
+  <mat-grid-list cols="{{ gridlistcols }}" rowHeight="{{ rowHeight }}">
+    <mat-grid-tile
+      *ngFor="let fenster of fensters"
+      [colspan]="fenster.cols"
+      [rowspan]="fenster.rows"
+    >
+      <div class="p-xl-5 mx-5 my-5" *ngIf="!fenster.open; else fensterOpen">
+        <button
+          class="colorWhite"
+          mat-button
+          (click)="openWindow(fenster)"
+          mat-button
+        >
+          {{ fenster.text }}
+        </button>
+      </div>
+      <ng-template #fensterOpen>
+        <div>
+          <img
+            (click)="showContent(fenster)"
+            [hidden]="fenster.imageHidden"
+            height="60"
+            src="{{ fenster.image }}"
+            width="50"
+          />
         </div>
-        <ng-template #fensterOpen>
-          <div>
-            <img
-              (click)="showContent(fenster)"
-              [hidden]="fenster.imageHidden"
-              height="60"
-              src="{{ fenster.image }}"
-              width="50"
-            />
-          </div>
-        </ng-template>
-      </mat-grid-tile>
-    </div>
+      </ng-template>
+    </mat-grid-tile>
   </mat-grid-list>
 </div>

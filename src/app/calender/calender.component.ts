@@ -21,9 +21,14 @@ export class Fenster {
 export class CalenderComponent implements OnInit {
   fensters: Fenster[] = [];
   localCalService!: CalenderService;
-  gridlistcols: string = '7';
+  gridlistcols: string = '9';
+  rowHeight: string = '2:1'; // Portrait -- 10:1 for Landscape
 
-  constructor(calService: CalenderService, public dialog: MatDialog) {
+  constructor(
+    calService: CalenderService,
+    public dialog: MatDialog,
+    private screen: Screen
+  ) {
     this.localCalService = calService;
   }
 
@@ -34,13 +39,9 @@ export class CalenderComponent implements OnInit {
       if (i <= 24) {
         fenster.text = tag.toString();
         tag++;
-        fenster.cols = this.getRandomInt(3);
-        fenster.rows = this.getRandomInt(2);
+        fenster.cols = this.getRandomInt(3) + 1;
+        fenster.rows = this.getRandomInt(1) + 2;
       }
-      // else {
-      //   fenster.cols = 1;
-      //   fenster.rows = 1;
-      // }
       this.fensters.push(fenster);
     }
     this.shuffleFenters(this.fensters);
@@ -55,6 +56,13 @@ export class CalenderComponent implements OnInit {
       this.initFensters();
     }
     this.fensters = this.localCalService.parse();
+    this.screen.orientation.addEventListener(
+      'onchange',
+      function () {
+        alert(screen.orientation);
+      },
+      false
+    );
   }
 
   openWindow(fenster: Fenster) {
@@ -130,15 +138,9 @@ export class CalenderComponent implements OnInit {
     this.localCalService.stringify(array);
     this.fensters = array;
   }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: { target: { innerWidth: any } }) {
-    let screenWidth = event.target.innerWidth;
-    if (screenWidth > 1000) {
-      //Testen was bei Tablets so üblich ist
-      console.log(event.target.innerWidth);
-      console.log('changed');
-      // ändere columns-anzahl
-    }
+  //TODO: Hier richtig machen, Window geht nicht, nimm Screen look Angular API
+  @HostListener('screen:onchange', ['$event'])
+  onOrientationChange(event: ScreenOrientationEventMap) {
+    console.log('orientationChanged');
   }
 }

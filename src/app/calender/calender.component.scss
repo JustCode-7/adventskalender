@@ -1,3 +1,21 @@
-.colorWhite{
-  color: white;
+.colorWhite {
+  color: black;
+  border-style: dashed;
+  border-width: 3px;
+  border-collapse: separate;
+  border-spacing: initial;
+}
+
+@media screen and (orientation: landscape) {
+  .grid {
+    width: 100%;
+    hight: 100vh;
+  }
+}
+
+@media screen and (orientation: portrait) {
+  .grid {
+    width: 100%;
+    hight: 100vh;
+  }
 }
