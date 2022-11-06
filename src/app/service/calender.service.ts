@@ -24,11 +24,11 @@ export class CalenderService {
     return arr;
   }
 
-  stringify(s: any) {
+  store(s: any) {
     localStorage.setItem(this.getCurrentYear().toString(), JSON.stringify(s));
   }
 
-  parse() {
+  load() {
     return JSON.parse(localStorage.getItem(this.getCurrentYear().toString())!);
   }
 
@@ -38,5 +38,22 @@ export class CalenderService {
 
   getImageFromDialog() {
     return this.image;
+  }
+
+  /**
+   * extract to Service
+   */
+  getRandomInt(max: number) {
+    return Math.floor(Math.random() * max) + 1;
+  }
+
+  /**
+   * extract to Service
+   */
+  shuffleFenters(array: Fenster[]): Fenster[] {
+    if (array.every((value, index) => value === array[index])) {
+      this.shuffle(array);
+    }
+    return array;
   }
 }
