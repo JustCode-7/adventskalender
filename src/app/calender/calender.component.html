@@ -1,13 +1,14 @@
-<div class="mx-3 my-3 justify-content-center">
+<div class="p-2 justify-content-center">
   <mat-grid-list cols="{{ gridlistcols }}" rowHeight="{{ rowHeight }}">
     <mat-grid-tile
+      class="tile"
       *ngFor="let fenster of fensters"
       [colspan]="fenster.cols"
       [rowspan]="fenster.rows"
     >
-      <div class="p-xl-5 mx-5 my-5" *ngIf="!fenster.open; else fensterOpen">
+      <div *ngIf="!fenster.open; else fensterOpen">
         <button
-          class="colorWhite"
+          class="buttontextcolor p-2"
           mat-button
           (click)="openWindow(fenster)"
           mat-button
@@ -18,6 +19,7 @@
       <ng-template #fensterOpen>
         <div>
           <img
+            class="p-2"
             (click)="showContent(fenster)"
             [hidden]="fenster.imageHidden"
             height="60"

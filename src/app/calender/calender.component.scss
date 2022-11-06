@@ -1,21 +1,17 @@
-.colorWhite {
+.buttontextcolor {
   color: black;
   border-style: dashed;
   border-width: 3px;
   border-collapse: separate;
   border-spacing: initial;
+  border-radius: 25px;
+  background: red; //test
+  line-height: 29px;
 }
 
-@media screen and (orientation: landscape) {
-  .grid {
-    width: 100%;
-    hight: 100vh;
-  }
-}
-
-@media screen and (orientation: portrait) {
-  .grid {
-    width: 100%;
-    hight: 100vh;
-  }
+.tile {
+  border: solid 2px #000; //test
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-inside: true;
 }

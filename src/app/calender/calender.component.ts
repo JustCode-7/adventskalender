@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { CalenderService } from '../service/calender.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ImageDialogComponent } from '../dialog/image-dialog/image-dialog.component';
@@ -18,80 +18,84 @@ export class Fenster {
   templateUrl: './calender.component.html',
   styleUrls: ['./calender.component.scss'],
 })
-export class CalenderComponent implements OnInit {
+export class CalenderComponent implements OnInit, DoCheck {
   fensters: Fenster[] = [];
-  localCalService!: CalenderService;
-  gridlistcols: string = '9';
-  rowHeight: string = '2:1'; // Portrait -- 10:1 for Landscape
+  gridlistcols: string = '16';
+  rowHeight: string = '5:1'; // Portrait -- 10:1 for Landscape
 
-  constructor(
-    calService: CalenderService,
-    public dialog: MatDialog,
-    private screen: Screen
-  ) {
-    this.localCalService = calService;
+  constructor(private calService: CalenderService, public dialog: MatDialog) {
+    this.handleGridOnOrientationChange();
   }
 
-  initFensters() {
+  ngDoCheck(): void {}
+
+  ngOnInit(): void {
+    if (this.calService.load() == null) {
+      this.initFensters();
+    }
+    this.fensters = this.calService.load();
+    window.addEventListener('orientationchange', () => {
+      this.handleGridOnOrientationChange();
+    });
+    window.visualViewport.addEventListener('resize', () => {
+      window.location.reload();
+    });
+  }
+
+  private initFensters() {
     let tag: number = 1;
     for (let i = 1; i <= 25; i++) {
       let fenster = new Fenster();
       if (i <= 24) {
         fenster.text = tag.toString();
         tag++;
-        fenster.cols = this.getRandomInt(3) + 1;
-        fenster.rows = this.getRandomInt(1) + 2;
+        fenster.cols = this.calService.getRandomInt(2) + 2;
+        fenster.rows = this.calService.getRandomInt(2) + 3;
       }
       this.fensters.push(fenster);
     }
-    this.shuffleFenters(this.fensters);
+    this.fensters = this.calService.shuffleFenters(this.fensters);
+    this.persistCalender(this.fensters);
   }
 
-  getRandomInt(max: number) {
-    return Math.floor(Math.random() * max) + 1;
-  }
-
-  ngOnInit(): void {
-    if (this.localCalService.parse() == null) {
-      this.initFensters();
+  private handleGridOnOrientationChange() {
+    if (screen.orientation.type === 'landscape-primary') {
+      this.rowHeight = '5:1';
+      this.gridlistcols = '16';
     }
-    this.fensters = this.localCalService.parse();
-    this.screen.orientation.addEventListener(
-      'onchange',
-      function () {
-        alert(screen.orientation);
-      },
-      false
-    );
+    if (screen.orientation.type === 'portrait-primary') {
+      this.rowHeight = '2:1';
+      this.gridlistcols = '12';
+    }
   }
 
-  openWindow(fenster: Fenster) {
+  protected openWindow(fenster: Fenster) {
     if (fenster.text != null) {
       fenster.imageHidden = false;
       fenster.open = true;
       this.setPictures(fenster);
       this.openDialog('3000ms', '1500ms', fenster);
-      this.localCalService.stringify(this.fensters);
+      this.persistCalender(this.fensters);
     }
   }
 
-  openDialog(
+  private openDialog(
     enterAnimationDuration: string,
     exitAnimationDuration: string,
     fenster: Fenster
   ): void {
-    this.localCalService.setImageForDialog(fenster);
+    this.calService.setImageForDialog(fenster);
     this.dialog.open(ImageDialogComponent, {
       enterAnimationDuration,
       exitAnimationDuration,
     });
   }
 
-  showContent(fenster: Fenster) {
+  protected showContent(fenster: Fenster) {
     this.openDialog('3000ms', '1500ms', fenster);
   }
 
-  checkCurrentDay(fenster: Fenster) {
+  private checkCurrentDay(fenster: Fenster) {
     let dayToday = new Date().getDay();
     if (Number.parseInt(fenster.text) == dayToday) {
       //openFenster
@@ -103,8 +107,8 @@ export class CalenderComponent implements OnInit {
    * um das so dynamisch wie möglich und ohne merkbare Wiederholung
    * zu lösen
    * @param fenster
-   * @private
-   */
+   * */
+
   private setPictures(fenster: Fenster) {
     let num = Number.parseInt(fenster.text);
     if (num == 24) {
@@ -128,19 +132,10 @@ export class CalenderComponent implements OnInit {
       fenster.image =
         'https://cdn01.xn--weihnachtsgrsse24-e3b.de/files/theme/Bilder/Startseite/weihnachtsgruesse-freundin.jpg';
     }
-    this.localCalService.setImageForDialog(fenster);
+    this.calService.setImageForDialog(fenster);
   }
 
-  private shuffleFenters(array: Fenster[]) {
-    if (array.every((value, index) => value === array[index])) {
-      this.localCalService.shuffle(array);
-    }
-    this.localCalService.stringify(array);
-    this.fensters = array;
-  }
-  //TODO: Hier richtig machen, Window geht nicht, nimm Screen look Angular API
-  @HostListener('screen:onchange', ['$event'])
-  onOrientationChange(event: ScreenOrientationEventMap) {
-    console.log('orientationChanged');
+  private persistCalender(array: Fenster[]) {
+    this.calService.store(array);
   }
 }
