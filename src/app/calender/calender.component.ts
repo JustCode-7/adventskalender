@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CalenderService } from '../service/calender.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ImageDialogComponent } from '../dialog/image-dialog/image-dialog.component';
@@ -18,16 +18,15 @@ export class Fenster {
   templateUrl: './calender.component.html',
   styleUrls: ['./calender.component.scss'],
 })
-export class CalenderComponent implements OnInit, DoCheck {
+export class CalenderComponent implements OnInit {
   fensters: Fenster[] = [];
   gridlistcols: string = '16';
   rowHeight: string = '5:1'; // Portrait -- 10:1 for Landscape
+  guttersize: string = '10px';
 
   constructor(private calService: CalenderService, public dialog: MatDialog) {
     this.handleGridOnOrientationChange();
   }
-
-  ngDoCheck(): void {}
 
   ngOnInit(): void {
     if (this.calService.load() == null) {
@@ -60,8 +59,8 @@ export class CalenderComponent implements OnInit, DoCheck {
 
   private handleGridOnOrientationChange() {
     if (screen.orientation.type === 'landscape-primary') {
-      this.rowHeight = '5:1';
-      this.gridlistcols = '16';
+      this.rowHeight = '3:1';
+      this.gridlistcols = '20';
     }
     if (screen.orientation.type === 'portrait-primary') {
       this.rowHeight = '2:1';

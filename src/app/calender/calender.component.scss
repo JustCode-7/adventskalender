@@ -1,17 +1,17 @@
 .buttontextcolor {
   color: black;
   border-style: dashed;
-  border-width: 3px;
-  border-collapse: separate;
-  border-spacing: initial;
-  border-radius: 25px;
-  background: red; //test
-  line-height: 29px;
+  //border-radius: 25px;
+  background: none; //test
+  justify-content: center;
 }
 
 .tile {
-  border: solid 2px #000; //test
-  margin-top: 5px;
-  margin-bottom: 5px;
-  margin-inside: true;
+  //border: solid 2px #000; //test
+  margin: 5px;
+}
+
+.imagesizeTile {
+  hight: 80%;
+  width: 100%;
 }

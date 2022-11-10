@@ -1,5 +1,9 @@
 <div class="p-2 justify-content-center">
-  <mat-grid-list cols="{{ gridlistcols }}" rowHeight="{{ rowHeight }}">
+  <mat-grid-list
+    cols="{{ gridlistcols }}"
+    rowHeight="{{ rowHeight }}"
+    gutterSize="{{ guttersize }}"
+  >
     <mat-grid-tile
       class="tile"
       *ngFor="let fenster of fensters"
@@ -8,25 +12,20 @@
     >
       <div *ngIf="!fenster.open; else fensterOpen">
         <button
-          class="buttontextcolor p-2"
-          mat-button
+          class="buttontextcolor shadow p-2"
+          mat-mini-fab
           (click)="openWindow(fenster)"
-          mat-button
         >
           {{ fenster.text }}
         </button>
       </div>
       <ng-template #fensterOpen>
-        <div>
-          <img
-            class="p-2"
-            (click)="showContent(fenster)"
-            [hidden]="fenster.imageHidden"
-            height="60"
-            src="{{ fenster.image }}"
-            width="50"
-          />
-        </div>
+        <img
+          class="p-2 imagesizeTile"
+          (click)="showContent(fenster)"
+          [hidden]="fenster.imageHidden"
+          src="{{ fenster.image }}"
+        />
       </ng-template>
     </mat-grid-tile>
   </mat-grid-list>
