@@ -7,10 +7,23 @@ import { CalenderService } from '../../service/calender.service';
   styleUrls: ['./image-dialog.component.scss'],
 })
 export class ImageDialogComponent {
-  hidden = true;
+  openleft = '';
+  openright = '';
   image = '';
+  closeButtonColor = '';
 
+  //indicator for isOpened -> no openAnimation -> can get over Fenster-attributes
   constructor(private calenderService: CalenderService) {
     this.image = this.calenderService.getImageFromDialog();
+  }
+
+  toggleDoor() {
+    this.openleft = 'openleft';
+    this.openright = 'openright';
+    this.closeButtonColor = 'accent';
+  }
+
+  closeButton() {
+    this.calenderService.closeWindow();
   }
 }

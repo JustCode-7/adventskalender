@@ -41,6 +41,20 @@ export class CalenderComponent implements OnInit {
     });
   }
 
+  protected openWindow(fenster: Fenster) {
+    if (fenster.text != null) {
+      fenster.imageHidden = false;
+      fenster.open = true;
+      this.setPictures(fenster);
+      this.openDialog('3000ms', '1500ms', fenster);
+      this.persistCalender(this.fensters);
+    }
+  }
+
+  protected showContent(fenster: Fenster) {
+    this.openDialog('3000ms', '1500ms', fenster);
+  }
+
   private initFensters() {
     let tag: number = 1;
     for (let i = 1; i <= 25; i++) {
@@ -68,16 +82,6 @@ export class CalenderComponent implements OnInit {
     }
   }
 
-  protected openWindow(fenster: Fenster) {
-    if (fenster.text != null) {
-      fenster.imageHidden = false;
-      fenster.open = true;
-      this.setPictures(fenster);
-      this.openDialog('3000ms', '1500ms', fenster);
-      this.persistCalender(this.fensters);
-    }
-  }
-
   private openDialog(
     enterAnimationDuration: string,
     exitAnimationDuration: string,
@@ -88,10 +92,6 @@ export class CalenderComponent implements OnInit {
       enterAnimationDuration,
       exitAnimationDuration,
     });
-  }
-
-  protected showContent(fenster: Fenster) {
-    this.openDialog('3000ms', '1500ms', fenster);
   }
 
   private checkCurrentDay(fenster: Fenster) {

@@ -1,5 +1,52 @@
 .imagesize {
   hight: 50%;
   width: 100%;
-  display: inline-block;
 }
+
+.doorWrapper {
+  hight: 100%;
+  width: 100%;
+  position: relative;
+  /* 3D */
+  perspective: 1000px;
+  overflow: hidden;
+}
+
+.backDoor {
+  background-color: brown;
+  height: 100%;
+  width: 50%;
+  position: absolute;
+}
+
+#doorLeft {
+  left: 0%;
+  /* transition */
+  transform-origin: left;
+  transition: transform 2s;
+}
+
+#doorRight {
+  right: 0%;
+  /* transition */
+  transform-origin: right;
+  transition: transform 2s;
+}
+
+
+/* Door swing effect */
+.openleft {
+  transform: rotateY(-140deg);
+}
+
+.openright {
+  transform: rotateY(140deg);
+}
+
+.escapeDoor {
+  position: relative;
+  float: right;
+}
+
+
+

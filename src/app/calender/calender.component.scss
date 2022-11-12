@@ -1,17 +1,17 @@
 .buttontextcolor {
   color: black;
-  border-style: dashed;
-  //border-radius: 25px;
-  background: none; //test
+  border: dashed 2px #000;
+  background: none;
   justify-content: center;
+  text-shadow: 1px 1px dimgray;
 }
 
 .tile {
-  //border: solid 2px #000; //test
   margin: 5px;
 }
 
 .imagesizeTile {
-  hight: 80%;
-  width: 100%;
+  hight: 50%;
+  width: 50%;
 }
+

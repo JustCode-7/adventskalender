@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Fenster } from '../calender/calender.component';
 
 @Injectable({
@@ -6,6 +7,8 @@ import { Fenster } from '../calender/calender.component';
 })
 export class CalenderService {
   image: string = '';
+
+  constructor(private dialog: MatDialog) {}
 
   getCurrentYear() {
     return new Date().getFullYear();
@@ -38,6 +41,10 @@ export class CalenderService {
 
   getImageFromDialog() {
     return this.image;
+  }
+
+  closeWindow() {
+    this.dialog.closeAll();
   }
 
   /**
