@@ -1,6 +1,11 @@
 .imagesize {
   hight: 50%;
   width: 100%;
+  visibility: visible;
+}
+
+.imageVisibil {
+  visibility: visible;
 }
 
 .doorWrapper {
@@ -12,27 +17,32 @@
   overflow: hidden;
 }
 
-.backDoor {
-  background-color: brown;
+.backDoorRight {
+  background: no-repeat center center;
+  background-size: cover;
+  background-image: url("../../../assets/pics/weihnachtsfensterR2.jpg");
   height: 100%;
   width: 50%;
   position: absolute;
+  right: 0%;
+  /* transition */
+  transform-origin: right;
+  transition: transform 2s;
+
 }
 
-#doorLeft {
+.backDoorLeft {
+  background: no-repeat center center;
+  background-size: cover;
+  background-image: url("../../../assets/pics/weihnachtsDoorLeft.jpg");
+  height: 100%;
+  width: 50%;
+  position: absolute;
   left: 0%;
   /* transition */
   transform-origin: left;
   transition: transform 2s;
 }
-
-#doorRight {
-  right: 0%;
-  /* transition */
-  transform-origin: right;
-  transition: transform 2s;
-}
-
 
 /* Door swing effect */
 .openleft {
@@ -43,10 +53,6 @@
   transform: rotateY(140deg);
 }
 
-.escapeDoor {
-  position: relative;
-  float: right;
-}
 
 
 

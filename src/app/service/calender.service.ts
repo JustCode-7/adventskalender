@@ -1,14 +1,46 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Fenster } from '../calender/calender.component';
+
+export class Fenster {
+  color!: string;
+  cols!: number;
+  rows!: number;
+  text!: string;
+  imageHidden: boolean = true;
+  opened: boolean = false;
+  image!: string;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class CalenderService {
-  image: string = '';
+  fensters: Fenster[] = [];
+  fensterFromDialog: Fenster = new Fenster();
+  openstate: boolean = false;
 
   constructor(private dialog: MatDialog) {}
+
+  public initFensters(): Fenster[] {
+    if (this.loadFromLocalStorage() == null) {
+      let tag: number = 1;
+      for (let i = 1; i <= 25; i++) {
+        let fenster = new Fenster();
+        if (i <= 24) {
+          fenster.text = tag.toString();
+          tag++;
+          fenster.cols = this.getRandomInt(2) + 2;
+          fenster.rows = this.getRandomInt(2) + 3;
+        }
+        this.setPictures(fenster);
+        this.fensters.push(fenster);
+      }
+      this.fensters = this.shuffleFenters();
+      this.persistCalender();
+    }
+    this.fensters = this.loadFromLocalStorage();
+    return this.fensters;
+  }
 
   getCurrentYear() {
     return new Date().getFullYear();
@@ -27,20 +59,20 @@ export class CalenderService {
     return arr;
   }
 
-  store(s: any) {
+  storeInLocalStorage(s: any) {
     localStorage.setItem(this.getCurrentYear().toString(), JSON.stringify(s));
   }
 
-  load() {
+  loadFromLocalStorage() {
     return JSON.parse(localStorage.getItem(this.getCurrentYear().toString())!);
   }
 
-  setImageForDialog(fenster: Fenster) {
-    this.image = fenster.image;
+  setFensterForDialog(fenster: Fenster) {
+    this.fensterFromDialog = fenster;
   }
 
-  getImageFromDialog() {
-    return this.image;
+  getFensterFromDialog() {
+    return this.fensterFromDialog;
   }
 
   closeWindow() {
@@ -57,10 +89,46 @@ export class CalenderService {
   /**
    * extract to Service
    */
-  shuffleFenters(array: Fenster[]): Fenster[] {
-    if (array.every((value, index) => value === array[index])) {
-      this.shuffle(array);
+  shuffleFenters(): Fenster[] {
+    if (this.fensters.every((value, index) => value === this.fensters[index])) {
+      this.shuffle(this.fensters);
     }
-    return array;
+    return this.fensters;
+  }
+
+  public persistCalender() {
+    this.storeInLocalStorage(this.fensters);
+  }
+
+  /**
+   * hier braucht es noch eine geile Idee
+   * um das so dynamisch wie möglich und ohne merkbare Wiederholung
+   * zu lösen
+   * @param fenster
+   * */
+
+  public setPictures(fenster: Fenster) {
+    let num = Number.parseInt(fenster.text);
+    if (num == 24) {
+      //Weihnachten
+      fenster.image =
+        'https://cdn01.xn--weihnachtsgrsse24-e3b.de/files/theme/Bilder/Startseite/weihnachtsgruesse-neu.jpg';
+    } else if (num == 6) {
+      // nikolaus
+      fenster.image =
+        'https://www.weihnachtsgedichte-sprueche.net/weihnachtssprueche/kurze/spruchbilder/kerzenbild-plaetzchen-text-unsereseele.jpg';
+    } else if (num % 2 == 0) {
+      fenster.image =
+        'https://www.weihnachtsgedichte-sprueche.net/weihnachtssprueche/kurze/spruchbilder/kerzenbild-plaetzchen-text-unsereseele.jpg';
+    } else if (num % 3 == 0) {
+      fenster.image =
+        'https://material.angular.io/assets/img/examples/shiba2.jpg';
+    } else if (num % 5 == 0) {
+      fenster.image =
+        'https://www.sprueche-und-wuensche.com/img/weihnachtssprueche.jpg';
+    } else {
+      fenster.image =
+        'https://cdn01.xn--weihnachtsgrsse24-e3b.de/files/theme/Bilder/Startseite/weihnachtsgruesse-freundin.jpg';
+    }
   }
 }

@@ -1,17 +1,10 @@
 .buttontextcolor {
   color: black;
   border: dashed 2px #000;
-  background: none;
   justify-content: center;
   text-shadow: 1px 1px dimgray;
+  background: no-repeat center center;
+  background-size: cover;
 }
 
-.tile {
-  margin: 5px;
-}
-
-.imagesizeTile {
-  hight: 50%;
-  width: 50%;
-}
 
