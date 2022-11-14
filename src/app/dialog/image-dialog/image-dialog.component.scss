@@ -1,10 +1,6 @@
-.imagesize {
+.imageSize {
   hight: 50%;
   width: 100%;
-  visibility: visible;
-}
-
-.imageVisibil {
   visibility: visible;
 }
 
@@ -34,7 +30,7 @@
 .backDoorLeft {
   background: no-repeat center center;
   background-size: cover;
-  background-image: url("../../../assets/pics/weihnachtsDoorLeft.jpg");
+  background-image: url("../../../assets/pics/weihnachtsfensterL1.jpg");
   height: 100%;
   width: 50%;
   position: absolute;
@@ -51,6 +47,10 @@
 
 .openright {
   transform: rotateY(140deg);
+}
+
+.iconSize {
+  transform: scale(1.5);
 }
 
 

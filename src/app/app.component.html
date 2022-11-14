@@ -1,4 +1,16 @@
-<div [ngStyle]="{'background-image': 'url(' + backgroundUrl + ')'}" class="background-img p-3">
+<div *ngIf="show; else isNotDezemder"
+     [ngStyle]="{'background-image': 'url(' + backgroundUrl + ')'}"
+     class="background-img p-3">
   <app-titel></app-titel>
-  <app-calender></app-calender>
+  <div class="mx-3 my-3">
+    <app-calender></app-calender>
+  </div>
 </div>
+<ng-template #isNotDezemder>
+  <div [ngStyle]="{'background-image': 'url(' + backgroundUrl + ')'}"
+       class="p-3 d-flex align-items-end flex-column bd-highlight mb-3 background-img">
+    <marquee behavior="alternate" class="marqueeBev mt-auto p-2 bd-highlight">
+      <h1 class="text-warning">Not yet, but soon... ^^</h1>
+    </marquee>
+  </div>
+</ng-template>

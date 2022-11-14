@@ -13,20 +13,24 @@ export class ImageDialogComponent {
   closeButtonColor = '';
   fenster: Fenster;
 
-  //indicator for isOpened -> no openAnimation -> can get over Fenster-attributes
   constructor(private calenderService: CalenderService) {
     this.image = this.calenderService.getFensterFromDialog().image;
     this.fenster = this.calenderService.getFensterFromDialog();
   }
 
   toggleDoor() {
-    setTimeout(() => {
-      this.fenster.opened = true;
-    }, 2000);
-    this.openleft = 'openleft';
-    this.openright = 'openright';
-    this.closeButtonColor = 'accent';
-    this.fenster.imageHidden = false;
+    if (this.calenderService.currentDayCheck(this.fenster)) {
+      setTimeout(() => {
+        this.fenster.opened = true;
+        this.calenderService.persistCalender();
+      }, 2000);
+      this.openleft = 'openleft';
+      this.openright = 'openright';
+      this.closeButtonColor = 'accent';
+      this.fenster.imageHidden = false;
+    } else {
+      this.closeButtonColor = 'warn';
+    }
   }
 
   closeButton() {

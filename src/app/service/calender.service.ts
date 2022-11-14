@@ -17,7 +17,6 @@ export class Fenster {
 export class CalenderService {
   fensters: Fenster[] = [];
   fensterFromDialog: Fenster = new Fenster();
-  openstate: boolean = false;
 
   constructor(private dialog: MatDialog) {}
 
@@ -65,6 +64,12 @@ export class CalenderService {
 
   loadFromLocalStorage() {
     return JSON.parse(localStorage.getItem(this.getCurrentYear().toString())!);
+  }
+
+  clearLocalStorageLastYear() {
+    if (localStorage.getItem((this.getCurrentYear() - 1).toString()!) != null) {
+      localStorage.removeItem((this.getCurrentYear() - 1).toString()!);
+    }
   }
 
   setFensterForDialog(fenster: Fenster) {
@@ -130,5 +135,21 @@ export class CalenderService {
       fenster.image =
         'https://cdn01.xn--weihnachtsgrsse24-e3b.de/files/theme/Bilder/Startseite/weihnachtsgruesse-freundin.jpg';
     }
+  }
+
+  public currentDayCheck(fenster: Fenster): boolean {
+    let dayToday = new Date().getDate();
+    if (Number.parseInt(fenster.text) == dayToday) {
+      return true;
+    }
+    return false;
+  }
+
+  public currentMonthCheck(): boolean {
+    let currentMonth = new Date().getMonth() + 1;
+    if (Number.parseInt('12') == currentMonth) {
+      return true;
+    }
+    return false;
   }
 }

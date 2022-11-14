@@ -28,9 +28,7 @@ export class CalenderComponent implements OnInit {
 
   protected openWindow(fenster: Fenster) {
     if (fenster.text != null) {
-      // fenster.opened = true;
       this.openDialog('3000ms', '1500ms', fenster);
-      this.calenderService.persistCalender();
     }
   }
 
@@ -64,12 +62,5 @@ export class CalenderComponent implements OnInit {
       enterAnimationDuration,
       exitAnimationDuration,
     });
-  }
-
-  private checkCurrentDay(fenster: Fenster) {
-    let dayToday = new Date().getDay();
-    if (Number.parseInt(fenster.text) == dayToday) {
-      //openFenster
-    }
   }
 }
