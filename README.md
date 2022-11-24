@@ -1,5 +1,13 @@
 # AnvendtskalenderApp
 
+The app is deployed at https://justcode-7.github.io/adventskalender/
+
+## GH-Workflow
+
+On the main branch the GH-Actions workflow builds the app. The build-output is deployed directly to GH-Pages, without an intermediary branch or folder.
+
+# Angular
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.6.
 
 ## Development server
