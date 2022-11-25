@@ -4,11 +4,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { ImageDialogComponent } from '../dialog/image-dialog/image-dialog.component';
 
 @Component({
-  selector: 'app-calender',
-  templateUrl: './calender.component.html',
-  styleUrls: ['./calender.component.scss'],
+  selector: 'app-calender-grid',
+  templateUrl: './calender-grid.component.html',
+  styleUrls: ['./calender-grid.component.scss'],
 })
-export class CalenderComponent implements OnInit {
+export class CalenderGridComponent implements OnInit {
   fensters: Fenster[] = [];
   gridlistcols: string = '16';
   rowHeight: string = '5:1'; // Portrait -- 10:1 for Landscape

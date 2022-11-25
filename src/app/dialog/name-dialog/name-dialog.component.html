@@ -1,0 +1,9 @@
+<mat-form-field>
+  <div class="d-flex flex-row">
+    <input [(ngModel)]="value" matInput placeholder="my name is" type="text"/>
+    <button (click)="setName(value)" mat-button>
+      <mat-icon>send</mat-icon>
+    </button>
+  </div>
+</mat-form-field>
+

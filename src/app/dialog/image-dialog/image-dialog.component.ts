@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CalenderService, Fenster } from '../../service/calender.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-image-dialog',
@@ -13,7 +14,10 @@ export class ImageDialogComponent {
   closeButtonColor = '';
   fenster: Fenster;
 
-  constructor(private calenderService: CalenderService) {
+  constructor(
+    private calenderService: CalenderService,
+    private dialogRef: MatDialogRef<ImageDialogComponent>
+  ) {
     this.image = this.calenderService.getFensterFromDialog().image;
     this.fenster = this.calenderService.getFensterFromDialog();
   }
@@ -34,6 +38,6 @@ export class ImageDialogComponent {
   }
 
   closeButton() {
-    this.calenderService.closeWindow();
+    this.dialogRef.close();
   }
 }

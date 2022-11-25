@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Injectable, OnInit } from '@angular/core';
 
 export class Fenster {
   color!: string;
@@ -14,14 +13,23 @@ export class Fenster {
 @Injectable({
   providedIn: 'root',
 })
-export class CalenderService {
+export class CalenderService implements OnInit {
   fensters: Fenster[] = [];
   fensterFromDialog: Fenster = new Fenster();
+  hiddenCalender: boolean = true;
+  username: string | undefined = '';
+  firstVisit: boolean = true;
 
-  constructor(private dialog: MatDialog) {}
+  constructor() {}
+
+  ngOnInit(): void {
+    if (this.loadNameFromLocalStorage() != null) {
+      this.setIsFirstVisit(false);
+    }
+  }
 
   public initFensters(): Fenster[] {
-    if (this.loadFromLocalStorage() == null) {
+    if (this.loadCalenderFromLocalStorage() == null) {
       let tag: number = 1;
       for (let i = 1; i <= 25; i++) {
         let fenster = new Fenster();
@@ -37,7 +45,7 @@ export class CalenderService {
       this.fensters = this.shuffleFenters();
       this.persistCalender();
     }
-    this.fensters = this.loadFromLocalStorage();
+    this.fensters = this.loadCalenderFromLocalStorage();
     return this.fensters;
   }
 
@@ -58,11 +66,11 @@ export class CalenderService {
     return arr;
   }
 
-  storeInLocalStorage(s: any) {
+  storeCalenderInLocalStorage(s: any) {
     localStorage.setItem(this.getCurrentYear().toString(), JSON.stringify(s));
   }
 
-  loadFromLocalStorage() {
+  loadCalenderFromLocalStorage() {
     return JSON.parse(localStorage.getItem(this.getCurrentYear().toString())!);
   }
 
@@ -78,10 +86,6 @@ export class CalenderService {
 
   getFensterFromDialog() {
     return this.fensterFromDialog;
-  }
-
-  closeWindow() {
-    this.dialog.closeAll();
   }
 
   /**
@@ -102,7 +106,7 @@ export class CalenderService {
   }
 
   public persistCalender() {
-    this.storeInLocalStorage(this.fensters);
+    this.storeCalenderInLocalStorage(this.fensters);
   }
 
   /**
@@ -151,5 +155,36 @@ export class CalenderService {
       return true;
     }
     return false;
+  }
+
+  public getName() {
+    this.username = this.loadNameFromLocalStorage();
+    return this.username;
+  }
+
+  storeNameInLocalStorage(s: string | undefined) {
+    if (s != '') {
+      s = 'von ' + s;
+    }
+    localStorage.setItem('name', JSON.stringify(s));
+  }
+
+  loadNameFromLocalStorage() {
+    return JSON.parse(localStorage.getItem('name')!);
+  }
+
+  sethiddenCalender(value: boolean) {
+    this.hiddenCalender = value;
+  }
+
+  /**
+   * return true, if user visits site at the first time
+   */
+  getIsFirstVisit() {
+    return this.firstVisit;
+  }
+
+  setIsFirstVisit(bool: boolean) {
+    this.firstVisit = bool;
   }
 }
