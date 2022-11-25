@@ -146,15 +146,12 @@ export class CalenderService implements OnInit {
     if (Number.parseInt(fenster.text) == dayToday) {
       return true;
     }
-    return false;
+    return true;
   }
 
   public currentMonthCheck(): boolean {
     let currentMonth = new Date().getMonth() + 1;
-    if (Number.parseInt('12') == currentMonth) {
-      return true;
-    }
-    return false;
+    return 12 == currentMonth;
   }
 
   public getName() {

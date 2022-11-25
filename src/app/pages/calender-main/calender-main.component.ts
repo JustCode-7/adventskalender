@@ -22,10 +22,10 @@ export class CalenderMainComponent implements OnInit {
 
       //TODO: its december init ImageMaps
       // background
-      this.backgroundUrl = '../assets/pics/HDpic.jpg';
+      this.backgroundUrl = 'adventskalender/assets/pics/HDpic.jpg';
       // fensterimages init List
     } else {
-      this.backgroundUrl = '../assets/pics/NotYet.gif';
+      this.backgroundUrl = 'adventskalender/assets/pics/NotYet.gif';
     }
     this.calenderService.clearLocalStorageLastYear();
   }
