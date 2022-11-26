@@ -20,7 +20,6 @@ export class NameDialogComponent {
   setName(value: string | undefined) {
     this.calenderService.storeNameInLocalStorage(value);
     this.calenderService.sethiddenCalender(false);
-    this.calenderService.setIsFirstVisit(false);
     this.router.navigate(['main']);
     this.dialogRef.close();
   }

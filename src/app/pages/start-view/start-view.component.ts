@@ -19,7 +19,6 @@ export class StartViewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.calenderService.loadNameFromLocalStorage());
     if (this.calenderService.loadNameFromLocalStorage() != null) {
       this.router.navigate(['main']);
     } else {

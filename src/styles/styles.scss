@@ -17,21 +17,12 @@ body {
   background-size: cover;
 }
 
-//TODO:für jedes jahr ein bild
-.background-img-pic {
-  background-image: url("../assets/pics/HDpic.jpg");
-}
-
-.background-img-pic-not-yet {
-  background-image: url("../assets/pics/NotYet.gif");
-}
-
 
 mat-dialog-container {
   background: none !important;
 }
 
 .backgroundgray {
-  background-color: dimgray;
+  background-color: #2b2b2c;
 }
 

@@ -18,14 +18,10 @@ export class CalenderService implements OnInit {
   fensterFromDialog: Fenster = new Fenster();
   hiddenCalender: boolean = true;
   username: string | undefined = '';
-  firstVisit: boolean = true;
 
   constructor() {}
 
   ngOnInit(): void {
-    if (this.loadNameFromLocalStorage() != null) {
-      this.setIsFirstVisit(false);
-    }
   }
 
   public initFensters(): Fenster[] {
@@ -159,8 +155,10 @@ export class CalenderService implements OnInit {
     return this.username;
   }
 
-  storeNameInLocalStorage(s: string | undefined) {
-    if (s != '') {
+  storeNameInLocalStorage(s: string | undefined ) {
+    if(s == undefined || s == ''){
+      s = '';
+    }else{
       s = 'von ' + s;
     }
     localStorage.setItem('name', JSON.stringify(s));
@@ -174,14 +172,5 @@ export class CalenderService implements OnInit {
     this.hiddenCalender = value;
   }
 
-  /**
-   * return true, if user visits site at the first time
-   */
-  getIsFirstVisit() {
-    return this.firstVisit;
-  }
 
-  setIsFirstVisit(bool: boolean) {
-    this.firstVisit = bool;
-  }
 }
