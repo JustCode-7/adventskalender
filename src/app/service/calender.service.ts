@@ -1,4 +1,5 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { PictureService } from "./picture.service";
 
 export class Fenster {
   color!: string;
@@ -13,18 +14,15 @@ export class Fenster {
 @Injectable({
   providedIn: 'root',
 })
-export class CalenderService implements OnInit {
+export class CalenderService {
   fensters: Fenster[] = [];
   fensterFromDialog: Fenster = new Fenster();
   hiddenCalender: boolean = true;
   username: string | undefined = '';
-  private projectAssets = 'https://justcode-7.github.io/adventskalender/assets/';
 
 
-  constructor() {}
 
-  ngOnInit(): void {
-  }
+  constructor(public pictureService: PictureService) {}
 
   public initFensters(): Fenster[] {
     if (this.loadCalenderFromLocalStorage() == null) {
@@ -86,16 +84,10 @@ export class CalenderService implements OnInit {
     return this.fensterFromDialog;
   }
 
-  /**
-   * extract to Service
-   */
   getRandomInt(max: number) {
     return Math.floor(Math.random() * max) + 1;
   }
 
-  /**
-   * extract to Service
-   */
   shuffleFenters(): Fenster[] {
     if (this.fensters.every((value, index) => value === this.fensters[index])) {
       this.shuffle(this.fensters);
@@ -107,35 +99,22 @@ export class CalenderService implements OnInit {
     this.storeCalenderInLocalStorage(this.fensters);
   }
 
-  /**
-   * hier braucht es noch eine geile Idee
-   * um das so dynamisch wie möglich und ohne merkbare Wiederholung
-   * zu lösen
-   * @param fenster
-   * */
-
   public setPictures(fenster: Fenster) {
     let num = Number.parseInt(fenster.text);
     if (num == 24) {
       //Weihnachten
-      fenster.image =
-        'https://cdn01.xn--weihnachtsgrsse24-e3b.de/files/theme/Bilder/Startseite/weihnachtsgruesse-neu.jpg';
+      this.setPicIfNotExists(this.pictureService.getPicFromWeihnachtenMap(), fenster)
     } else if (num == 6) {
       // nikolaus
-      fenster.image =
-        'https://www.weihnachtsgedichte-sprueche.net/weihnachtssprueche/kurze/spruchbilder/kerzenbild-plaetzchen-text-unsereseele.jpg';
-    } else if (num % 2 == 0) {
-      fenster.image =
-        'https://www.weihnachtsgedichte-sprueche.net/weihnachtssprueche/kurze/spruchbilder/kerzenbild-plaetzchen-text-unsereseele.jpg';
-    } else if (num % 3 == 0) {
-      fenster.image =
-        'https://material.angular.io/assets/img/examples/shiba2.jpg';
-    } else if (num % 5 == 0) {
-      fenster.image =
-        'https://www.sprueche-und-wuensche.com/img/weihnachtssprueche.jpg';
+      this.setPicIfNotExists(this.pictureService.getPicFromNikolausMap(), fenster)
     } else {
-      fenster.image =
-        'https://cdn01.xn--weihnachtsgrsse24-e3b.de/files/theme/Bilder/Startseite/weihnachtsgruesse-freundin.jpg';
+      this.setPicIfNotExists(this.pictureService.getPicFromFensterMap(), fenster)
+    }
+  }
+
+  private setPicIfNotExists(image : string, fenster: Fenster) {
+    if(this.fensters.find(fenster => fenster.image == image) == undefined){
+      fenster.image = image;
     }
   }
 
@@ -172,39 +151,6 @@ export class CalenderService implements OnInit {
 
   sethiddenCalender(value: boolean) {
     this.hiddenCalender = value;
-  }
-
-  initFensterMap() {
-
-    let map = new Map<number, String>();
-    map.set(1, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
-    map.set(2, this.projectAssets + 'windows/kerze-plaetzchen.jpg');
-    map.set(3, this.projectAssets + 'windows/kerzenbild-sternen.jpg');
-    map.set(4, this.projectAssets + 'windows/wei3.jpgg');
-    map.set(5, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
-    //nikolaus
-    map.set(6, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
-    map.set(7, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
-    map.set(7, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
-    map.set(8, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
-    map.set(10, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
-    map.set(11, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
-    map.set(12, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
-    map.set(13, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
-    map.set(14, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
-    map.set(15, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
-    map.set(16, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
-    map.set(17, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
-    map.set(18, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
-    map.set(19, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
-    map.set(20, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
-    map.set(21, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
-    map.set(22, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
-    map.set(23, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
-    //Weihnachten
-    map.set(24, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
-
-
   }
 
 }
