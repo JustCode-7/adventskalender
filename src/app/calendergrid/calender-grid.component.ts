@@ -33,7 +33,7 @@ export class CalenderGridComponent implements OnInit {
     window.addEventListener('orientationchange', () => {
       this.handleGridOnOrientationChange();
     });
-    window.visualViewport.addEventListener('resize', () => {
+    window.visualViewport!.addEventListener('resize', () => {
       window.location.reload();
     });
   }
