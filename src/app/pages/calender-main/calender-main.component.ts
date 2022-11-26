@@ -10,10 +10,13 @@ import { Router } from "@angular/router";
 export class CalenderMainComponent implements OnInit {
   backgroundUrl: string = '';
   show: boolean = true;
+  private projectAssets = 'https://justcode-7.github.io/adventskalender/assets/';
 
   constructor(public calenderService: CalenderService,  private router: Router) {
     this.show = true; //TODO: activate this.calenderService.currentMonthCheck()
   }
+
+
 
   ngOnInit(): void {
     if (this.calenderService.loadNameFromLocalStorage() == null) {
@@ -25,10 +28,10 @@ export class CalenderMainComponent implements OnInit {
 
       //TODO: its december init ImageMaps
       // background
-      this.backgroundUrl = 'https://justcode-7.github.io/adventskalender/assets/background/HDpic.jpg';
+      this.backgroundUrl = this.projectAssets + 'background/HDpic.jpg';
       // fensterimages init List
     } else {
-      this.backgroundUrl = 'https://justcode-7.github.io/adventskalender/assets/background/NotYet.gif';
+      this.backgroundUrl = this.projectAssets + 'background/NotYet.gif';
     }
     this.calenderService.clearLocalStorageLastYear();
   }

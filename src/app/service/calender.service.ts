@@ -18,6 +18,8 @@ export class CalenderService implements OnInit {
   fensterFromDialog: Fenster = new Fenster();
   hiddenCalender: boolean = true;
   username: string | undefined = '';
+  private projectAssets = 'https://justcode-7.github.io/adventskalender/assets/';
+
 
   constructor() {}
 
@@ -172,5 +174,37 @@ export class CalenderService implements OnInit {
     this.hiddenCalender = value;
   }
 
+  initFensterMap() {
+
+    let map = new Map<number, String>();
+    map.set(1, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
+    map.set(2, this.projectAssets + 'windows/kerze-plaetzchen.jpg');
+    map.set(3, this.projectAssets + 'windows/kerzenbild-sternen.jpg');
+    map.set(4, this.projectAssets + 'windows/wei3.jpgg');
+    map.set(5, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
+    //nikolaus
+    map.set(6, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
+    map.set(7, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
+    map.set(7, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
+    map.set(8, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
+    map.set(10, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
+    map.set(11, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
+    map.set(12, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
+    map.set(13, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
+    map.set(14, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
+    map.set(15, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
+    map.set(16, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
+    map.set(17, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
+    map.set(18, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
+    map.set(19, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
+    map.set(20, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
+    map.set(21, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
+    map.set(22, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
+    map.set(23, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
+    //Weihnachten
+    map.set(24, this.projectAssets + 'windows/dankbarkeit-kerze.jpg');
+
+
+  }
 
 }
