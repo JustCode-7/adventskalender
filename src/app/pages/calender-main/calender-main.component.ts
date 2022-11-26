@@ -25,10 +25,10 @@ export class CalenderMainComponent implements OnInit {
 
       //TODO: its december init ImageMaps
       // background
-      this.backgroundUrl = 'https://github.com/JustCode-7/adventskalender/blob/main/src/assets/background/HDpic.jpg';
+      this.backgroundUrl = 'https://justcode-7.github.io/adventskalender/assets/background/HDpic.jpg';
       // fensterimages init List
     } else {
-      this.backgroundUrl = '../../../assets/background/NotYet.gif';
+      this.backgroundUrl = 'https://justcode-7.github.io/adventskalender/assets/background/NotYet.gif';
     }
     this.calenderService.clearLocalStorageLastYear();
   }
