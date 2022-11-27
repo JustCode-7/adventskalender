@@ -1,9 +1,9 @@
-import { Injectable, OnInit } from "@angular/core";
+import { Injectable} from "@angular/core";
 
 @Injectable({
   providedIn: 'root'
 })
-export class PictureService implements OnInit{
+export class PictureService{
   private projectAssetsWindows = 'https://justcode-7.github.io/adventskalender/assets/windows/';
   private projectAssetsWeihnachten = 'https://justcode-7.github.io/adventskalender/assets/weihnachten/';
   private projectAssetsNikolaus = 'https://justcode-7.github.io/adventskalender/assets/nikolaus/';
@@ -11,11 +11,11 @@ export class PictureService implements OnInit{
   private mapWeihnachten = new Map<number, string>();
   private mapNikolaus = new Map<number, string>();
 
-  ngOnInit(): void {
+  constructor() {
     this.initWeihnachtMap();
     this.initFensterMap();
     this.initNikolausMap();
-    }
+  }
 
   initFensterMap() {
     this.mapFenster.set(1, this.projectAssetsWindows + 'dankbarkeit-kerze.jpg');

@@ -112,9 +112,9 @@ export class CalenderService {
     }
   }
 
-  private setPicIfNotExists(image : string, fenster: Fenster) {
+  private setPicIfNotExists(image : string, currFenster: Fenster) {
     if(this.fensters.find(fenster => fenster.image == image) == undefined){
-      fenster.image = image;
+      currFenster.image = image;
     }
   }
 
