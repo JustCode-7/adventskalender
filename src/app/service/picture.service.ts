@@ -21,7 +21,7 @@ export class PictureService{
     this.mapFenster.set(1, this.projectAssetsWindows + 'dankbarkeit-kerze.jpg');
     this.mapFenster.set(2, this.projectAssetsWindows + 'kerze-plaetzchen.jpg');
     this.mapFenster.set(3, this.projectAssetsWindows + 'kerzenbild-sternen.jpg');
-    this.mapFenster.set(4, this.projectAssetsWindows + 'wei3.jpgg');
+    this.mapFenster.set(4, this.projectAssetsWindows + 'wei3.jpg');
     this.mapFenster.set(5, this.projectAssetsWindows + 'weihnachtskugel.jpg');
     this.mapFenster.set(6, this.projectAssetsWindows + 'dankbarkeit-kerze.jpg');
     this.mapFenster.set(7, this.projectAssetsWindows + 'weihnachtswunsch-1.jpg');
