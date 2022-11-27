@@ -13,7 +13,7 @@ export class CalenderMainComponent implements OnInit {
   show: boolean = true;
 
   constructor(private calenderService: CalenderService, private pictureService : PictureService,  private router: Router) {
-    this.show = true; //TODO: activate this.calenderService.currentMonthCheck()
+    this.show = this.calenderService.currentMonthCheck();
   }
 
 

@@ -27,7 +27,7 @@ export class CalenderService {
   public initFensters(): Fenster[] {
     if (this.loadCalenderFromLocalStorage() == null) {
       let tag: number = 1;
-      for (let i = 1; i <= 25; i++) {
+      for (let i = 1; i <= 24; i++) {
         let fenster = new Fenster();
         if (i <= 24) {
           fenster.text = tag.toString();
@@ -85,7 +85,7 @@ export class CalenderService {
   }
 
   getRandomInt(max: number) {
-    return Math.floor(Math.random() * max) + 1;
+    return 1 + Math.floor(Math.random() * (max - 1 + 1));
   }
 
   shuffleFenters(): Fenster[] {
@@ -114,7 +114,7 @@ export class CalenderService {
 
   public currentDayCheck(fenster: Fenster): boolean {
     let dayToday = new Date().getDate();
-    return true; //TODO: activate Number.parseInt(fenster.text) == dayToday;
+    return Number.parseInt(fenster.text) == dayToday;
   }
 
   public currentMonthCheck(): boolean {

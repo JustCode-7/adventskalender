@@ -55,8 +55,8 @@ export class PictureService{
   }
 
   getPicFromFensterMap(fensters: Fenster[]) : string {
-    let image = this.mapFenster.get(this.getRandomInt(39))!;
-    if(this.checkPicAlreadyExists(image,fensters) || image == undefined){
+    let image = this.mapFenster.get(this.getRandomInt(29))!;
+    if(this.checkPicAlreadyExists(image,fensters) || image === undefined){
       this.getPicFromFensterMap(fensters);
     }
     return image;
@@ -107,7 +107,7 @@ export class PictureService{
     return this.projectAssetsBackgroundNotYet + 'NotYet.gif';
   }
   getRandomInt(max: number) {
-    return Math.floor(1 + Math.random() * max);
+    return 1 + Math.floor(Math.random() * (max - 1 + 1));
   }
   private checkPicAlreadyExists(image : string, fensters: Fenster[]) {
     return fensters.map(value => value.image).includes(image);
