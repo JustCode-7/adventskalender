@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { NameDialogComponent } from './dialog/name-dialog/name-dialog.component';
 import { StartViewComponent } from './pages/start-view/start-view.component';
 import { CalenderMainComponent } from './pages/calender-main/calender-main.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,12 @@ import { CalenderMainComponent } from './pages/calender-main/calender-main.compo
     MatIconModule,
     MatInputModule,
     FormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
