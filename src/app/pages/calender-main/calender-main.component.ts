@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CalenderService } from '../../service/calender.service';
 import { Router } from "@angular/router";
+import { PictureService } from "../../service/picture.service";
 
 @Component({
   selector: 'app-calender-main',
@@ -10,9 +11,8 @@ import { Router } from "@angular/router";
 export class CalenderMainComponent implements OnInit {
   backgroundUrl: string = '';
   show: boolean = true;
-  private projectAssets = 'https://justcode-7.github.io/adventskalender/assets/';
 
-  constructor(public calenderService: CalenderService,  private router: Router) {
+  constructor(private calenderService: CalenderService, private pictureService : PictureService,  private router: Router) {
     this.show = true; //TODO: activate this.calenderService.currentMonthCheck()
   }
 
@@ -22,17 +22,22 @@ export class CalenderMainComponent implements OnInit {
     if (this.calenderService.loadNameFromLocalStorage() == null) {
       this.router.navigate(['start']);
     }
-    //this.calenderService.currentMonthCheck()
-    if (this.show) {
-      // if currentMonth and already checked in (from localStore)
 
-      //TODO: its december init ImageMaps
-      // background
-      this.backgroundUrl = this.projectAssets + 'background/HDpic.jpg';
-      // fensterimages init List
+    this.handlebackgroundImageSelect();
+    this.calenderService.clearCalenderLastYearFromLocalStorage();
+    this.calenderService.clearBackgroundLastYearFromLocalStorage();
+  }
+
+  handlebackgroundImageSelect(){
+    if (this.show) {
+      if(this.calenderService.loadBackgroundFromLocalStorage() == null){
+        this.backgroundUrl = this.pictureService.getPicFromBackgroundMap();
+        this.calenderService.storeBackgroundInLocalStorage(this.backgroundUrl);
+      }else{
+        this.backgroundUrl = this.calenderService.loadBackgroundFromLocalStorage();
+      }
     } else {
-      this.backgroundUrl = this.projectAssets + 'background/NotYet.gif';
+      this.backgroundUrl = this.pictureService.getNotYetpic();
     }
-    this.calenderService.clearLocalStorageLastYear();
   }
 }

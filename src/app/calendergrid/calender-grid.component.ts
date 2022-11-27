@@ -23,6 +23,15 @@ export class CalenderGridComponent implements OnInit {
   ngOnInit(): void {
     this.addEventListeners();
     this.fensters = this.calenderService.initFensters();
+    this.checkAllFenstersHaveimages(this.fensters);
+  }
+
+  private checkAllFenstersHaveimages(fensters: Fenster[]) {
+    fensters.forEach(value => {
+      if(value.image == undefined){
+        console.log(value);
+      }
+    })
   }
   openWindow(fenster: Fenster) {
     if (fenster.text != null) {

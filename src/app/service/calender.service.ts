@@ -22,7 +22,7 @@ export class CalenderService {
 
 
 
-  constructor(public pictureService: PictureService) {}
+  constructor(private pictureService: PictureService) {}
 
   public initFensters(): Fenster[] {
     if (this.loadCalenderFromLocalStorage() == null) {
@@ -70,7 +70,7 @@ export class CalenderService {
     return JSON.parse(localStorage.getItem(this.getCurrentYear().toString())!);
   }
 
-  clearLocalStorageLastYear() {
+  clearCalenderLastYearFromLocalStorage() {
     if (localStorage.getItem((this.getCurrentYear() - 1).toString()!) != null) {
       localStorage.removeItem((this.getCurrentYear() - 1).toString()!);
     }
@@ -103,27 +103,18 @@ export class CalenderService {
     let num = Number.parseInt(fenster.text);
     if (num == 24) {
       //Weihnachten
-      this.setPicIfNotExists(this.pictureService.getPicFromWeihnachtenMap(), fenster)
+      fenster.image = this.pictureService.getPicFromWeihnachtenMap(this.fensters)
     } else if (num == 6) {
       // nikolaus
-      this.setPicIfNotExists(this.pictureService.getPicFromNikolausMap(), fenster)
+      fenster.image = this.pictureService.getPicFromNikolausMap(this.fensters)
     } else {
-      this.setPicIfNotExists(this.pictureService.getPicFromFensterMap(), fenster)
-    }
-  }
-
-  private setPicIfNotExists(image : string, currFenster: Fenster) {
-    if(this.fensters.find(fenster => fenster.image == image) == undefined){
-      currFenster.image = image;
+      fenster.image = this.pictureService.getPicFromFensterMap(this.fensters)
     }
   }
 
   public currentDayCheck(fenster: Fenster): boolean {
     let dayToday = new Date().getDate();
-    if (Number.parseInt(fenster.text) == dayToday) {
-      return true;
-    }
-    return true;
+    return true; //TODO: activate Number.parseInt(fenster.text) == dayToday;
   }
 
   public currentMonthCheck(): boolean {
@@ -144,11 +135,22 @@ export class CalenderService {
     }
     localStorage.setItem('name', JSON.stringify(s));
   }
-
   loadNameFromLocalStorage() {
     return JSON.parse(localStorage.getItem('name')!);
   }
 
+  loadBackgroundFromLocalStorage() {
+    return JSON.parse(localStorage.getItem('background'+this.getCurrentYear())!);
+  }
+
+  storeBackgroundInLocalStorage(s: string | undefined ) {
+    localStorage.setItem('background'+this.getCurrentYear(), JSON.stringify(s));
+  }
+  clearBackgroundLastYearFromLocalStorage() {
+    if (localStorage.getItem('background'+(this.getCurrentYear() - 1).toString()!) != null) {
+      localStorage.removeItem(('background'+(this.getCurrentYear() - 1).toString()!));
+    }
+  }
   sethiddenCalender(value: boolean) {
     this.hiddenCalender = value;
   }

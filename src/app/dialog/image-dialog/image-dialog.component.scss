@@ -1,6 +1,10 @@
+.dialogSize {
+  overflow: hidden;
+}
+
 .imageSize {
-  height: 50%;
-  width: 100%;
+  height: 350px;
+  width: 350px;
   visibility: visible;
 }
 
@@ -9,7 +13,6 @@
   width: 100%;
   position: relative;
   /* 3D */
-  perspective: 1000px;
   overflow: hidden;
 }
 
@@ -20,11 +23,10 @@
   height: 100%;
   width: 50%;
   position: absolute;
-  right: 0%;
+  right: 0;
   /* transition */
   transform-origin: right;
   transition: transform 2s;
-
 }
 
 .backDoorLeft {
@@ -34,7 +36,7 @@
   height: 100%;
   width: 50%;
   position: absolute;
-  left: 0%;
+  left: 0;
   /* transition */
   transform-origin: left;
   transition: transform 2s;
