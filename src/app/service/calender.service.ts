@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PictureService } from "./picture.service";
+import { PictureService } from './picture.service';
 
 export class Fenster {
   color!: string;
@@ -19,8 +19,6 @@ export class CalenderService {
   fensterFromDialog: Fenster = new Fenster();
   hiddenCalender: boolean = true;
   username: string | undefined = '';
-
-
 
   constructor(private pictureService: PictureService) {}
 
@@ -103,18 +101,20 @@ export class CalenderService {
     let num = Number.parseInt(fenster.text);
     if (num == 24) {
       //Weihnachten
-      fenster.image = this.pictureService.getPicFromWeihnachtenMap(this.fensters)
+      fenster.image = this.pictureService.getPicFromWeihnachtenMap(
+        this.fensters
+      );
     } else if (num == 6) {
       // nikolaus
-      fenster.image = this.pictureService.getPicFromNikolausMap(this.fensters)
+      fenster.image = this.pictureService.getPicFromNikolausMap(this.fensters);
     } else {
-      fenster.image = this.pictureService.getPicFromFensterMap(this.fensters)
+      fenster.image = this.pictureService.getPicFromFensterMap(this.fensters);
     }
   }
 
   public currentDayCheck(fenster: Fenster): boolean {
     let dayToday = new Date().getDate();
-    return Number.parseInt(fenster.text) == dayToday;
+    return Number.parseInt(fenster.text) <= dayToday;
   }
 
   public currentMonthCheck(): boolean {
@@ -127,32 +127,45 @@ export class CalenderService {
     return this.username;
   }
 
-  storeNameInLocalStorage(s: string | undefined ) {
-    if(s == undefined || s == ''){
+  storeNameInLocalStorage(s: string | undefined) {
+    if (s == undefined || s == '') {
       s = '';
-    }else{
+    } else {
       s = 'von ' + s;
     }
     localStorage.setItem('name', JSON.stringify(s));
   }
+
   loadNameFromLocalStorage() {
     return JSON.parse(localStorage.getItem('name')!);
   }
 
   loadBackgroundFromLocalStorage() {
-    return JSON.parse(localStorage.getItem('background'+this.getCurrentYear())!);
+    return JSON.parse(
+      localStorage.getItem('background' + this.getCurrentYear())!
+    );
   }
 
-  storeBackgroundInLocalStorage(s: string | undefined ) {
-    localStorage.setItem('background'+this.getCurrentYear(), JSON.stringify(s));
+  storeBackgroundInLocalStorage(s: string | undefined) {
+    localStorage.setItem(
+      'background' + this.getCurrentYear(),
+      JSON.stringify(s)
+    );
   }
+
   clearBackgroundLastYearFromLocalStorage() {
-    if (localStorage.getItem('background'+(this.getCurrentYear() - 1).toString()!) != null) {
-      localStorage.removeItem(('background'+(this.getCurrentYear() - 1).toString()!));
+    if (
+      localStorage.getItem(
+        'background' + (this.getCurrentYear() - 1).toString()!
+      ) != null
+    ) {
+      localStorage.removeItem(
+        'background' + (this.getCurrentYear() - 1).toString()!
+      );
     }
   }
+
   sethiddenCalender(value: boolean) {
     this.hiddenCalender = value;
   }
-
 }

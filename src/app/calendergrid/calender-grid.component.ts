@@ -20,6 +20,7 @@ export class CalenderGridComponent implements OnInit {
   ) {
     this.handleGridOnOrientationChange();
   }
+
   ngOnInit(): void {
     this.addEventListeners();
     this.fensters = this.calenderService.initFensters();
@@ -30,6 +31,7 @@ export class CalenderGridComponent implements OnInit {
       this.openDialog('3000ms', '1500ms', fenster);
     }
   }
+
   private addEventListeners() {
     window.addEventListener('orientationchange', () => {
       this.handleGridOnOrientationChange();
@@ -38,6 +40,7 @@ export class CalenderGridComponent implements OnInit {
       window.location.reload();
     });
   }
+
   private handleGridOnOrientationChange() {
     if (screen.orientation.type === 'landscape-primary') {
       this.rowHeight = '3:1';
@@ -48,12 +51,15 @@ export class CalenderGridComponent implements OnInit {
       this.gridlistcols = '12';
     }
   }
+
   private openDialog(
     enterAnimationDuration: string,
     exitAnimationDuration: string,
     fenster: Fenster
   ): void {
-    this.calenderService.setFensterForDialog(fenster);
+    if (this.calenderService.currentDayCheck(fenster)) {
+      this.calenderService.setFensterForDialog(fenster);
+    }
     this.dialog.open(ImageDialogComponent, {
       enterAnimationDuration,
       exitAnimationDuration,
