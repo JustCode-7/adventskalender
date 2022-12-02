@@ -1,20 +1,20 @@
-<div class="vw-75 vh-75 dialogSize">
+<div class="vw-75 vh-75 dialogSize backgroundgray">
   <div *ngIf="!fenster.opened; else fensterOpen">
     <div (click)="toggleDoor()" class="doorWrapper">
       <div class="backDoorRight {{openright}}">
       </div>
       <div class="backDoorLeft {{openleft}}">
       </div>
-      <img class="imageSize" src="{{ image }}"/>
+      <img class="imageSize .align-content-center d-flex  flex-fill .align-content-stretch" src="{{ image }}" />
     </div>
   </div>
-  <div class="d-flex justify-content-center">
-    <button (click)="closeButton()" color="{{closeButtonColor}}" mat-button>
+  <div class="d-flex justify-content-center btn-background backgroundgray">
+    <button (click)="closeButton()" class="backgroundgray" color="{{closeButtonColor}}" mat-button>
       <mat-icon class="iconSize">highlight_off</mat-icon>
     </button>
   </div>
   <ng-template #fensterOpen>
-    <img class="imageSize" src="{{ image }}"/>
+    <img (dblclick)="doubleClick()" class="{{imageSizeOnOpenedWindow}}" src="{{ image }}" />
   </ng-template>
 </div>
 

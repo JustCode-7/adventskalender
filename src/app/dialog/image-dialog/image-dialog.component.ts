@@ -13,6 +13,7 @@ export class ImageDialogComponent {
   image = '';
   closeButtonColor = '';
   fenster: Fenster;
+  imageSizeOnOpenedWindow = 'imageSize';
 
   constructor(
     private calenderService: CalenderService,
@@ -25,7 +26,6 @@ export class ImageDialogComponent {
   toggleDoor() {
     if (this.calenderService.currentDayCheck(this.fenster)) {
       setTimeout(() => {
-        this.fenster.opened = true;
         this.calenderService.persistCalender();
       }, 2000);
       this.openleft = 'openleft';
@@ -39,5 +39,16 @@ export class ImageDialogComponent {
 
   closeButton() {
     this.dialogRef.close();
+    this.dialogRef.afterClosed().subscribe(() => {
+      this.fenster.opened = true;
+    });
+  }
+
+  doubleClick() {
+    if (this.imageSizeOnOpenedWindow === 'imageSizeBig') {
+      this.imageSizeOnOpenedWindow = 'imageSize';
+    } else {
+      this.imageSizeOnOpenedWindow = 'imageSizeBig';
+    }
   }
 }
