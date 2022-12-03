@@ -26,12 +26,11 @@ export class ImageDialogComponent {
   toggleDoor() {
     if (this.calenderService.currentDayCheck(this.fenster)) {
       setTimeout(() => {
+        this.fenster.opened = true;
+        this.fenster.imageHidden = false;
         this.calenderService.persistCalender();
       }, 2000);
-      this.openleft = 'openleft';
-      this.openright = 'openright';
-      this.closeButtonColor = 'accent';
-      this.fenster.imageHidden = false;
+      this.openFensterAnimation();
     } else {
       this.closeButtonColor = 'warn';
     }
@@ -39,11 +38,7 @@ export class ImageDialogComponent {
 
   closeButton() {
     this.dialogRef.close();
-    this.dialogRef.afterClosed().subscribe(() => {
-      if (this.calenderService.currentDayCheck(this.fenster)) {
-        this.fenster.opened = true;
-      }
-    });
+    this.dialogRef.afterClosed().subscribe(() => {});
   }
 
   doubleClick() {
@@ -52,5 +47,11 @@ export class ImageDialogComponent {
     } else {
       this.imageSizeOnOpenedWindow = 'imageSizeBig';
     }
+  }
+
+  private openFensterAnimation() {
+    this.openleft = 'openleft';
+    this.openright = 'openright';
+    this.closeButtonColor = 'accent';
   }
 }
