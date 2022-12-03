@@ -128,9 +128,11 @@ export class CalenderService {
   }
 
   storeNameInLocalStorage(s: string | undefined) {
+    let regex = /[^a-zA-Z]/;
     if (s == undefined || s == '') {
       s = '';
     } else {
+      s = s.replace(regex, '');
       s = 'von ' + s;
     }
     localStorage.setItem('name', JSON.stringify(s));
