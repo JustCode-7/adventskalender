@@ -42,13 +42,25 @@ export class CalenderGridComponent implements OnInit {
   }
 
   private handleGridOnOrientationChange() {
-    if (screen.orientation.type === 'landscape-primary') {
-      this.rowHeight = '3:1';
-      this.gridlistcols = '20';
-    }
-    if (screen.orientation.type === 'portrait-primary') {
-      this.rowHeight = '2:1';
-      this.gridlistcols = '12';
+    let userAgent = navigator.userAgent;
+    if (userAgent.includes('iPhone') || userAgent.includes('iPad')) {
+      if (window.orientation === 90 || window.orientation === -90) {
+        this.rowHeight = '3:1';
+        this.gridlistcols = '20';
+      }
+      if (window.orientation === 0 || window.orientation === 180) {
+        this.rowHeight = '2:1';
+        this.gridlistcols = '12';
+      }
+    } else {
+      if (screen.orientation.type === 'landscape-primary') {
+        this.rowHeight = '3:1';
+        this.gridlistcols = '20';
+      }
+      if (screen.orientation.type === 'portrait-primary') {
+        this.rowHeight = '2:1';
+        this.gridlistcols = '12';
+      }
     }
   }
 
