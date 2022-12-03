@@ -40,7 +40,9 @@ export class ImageDialogComponent {
   closeButton() {
     this.dialogRef.close();
     this.dialogRef.afterClosed().subscribe(() => {
-      this.fenster.opened = true;
+      if (this.calenderService.currentDayCheck(this.fenster)) {
+        this.fenster.opened = true;
+      }
     });
   }
 

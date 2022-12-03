@@ -57,9 +57,7 @@ export class CalenderGridComponent implements OnInit {
     exitAnimationDuration: string,
     fenster: Fenster
   ): void {
-    if (this.calenderService.currentDayCheck(fenster)) {
-      this.calenderService.setFensterForDialog(fenster);
-    }
+    this.calenderService.setFensterForDialog(fenster);
     this.dialog.open(ImageDialogComponent, {
       enterAnimationDuration,
       exitAnimationDuration,
