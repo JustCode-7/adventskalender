@@ -8,4 +8,20 @@ import { CalenderService } from '../service/calender.service';
 })
 export class TitelComponent {
   constructor(public localCalService: CalenderService) {}
+
+  installApp() {
+    //TODO: fill with logic
+  }
+
+  showQR() {
+    //TODO: fill with logic
+  }
+
+  showLink() {
+    //TODO: fill with logic
+  }
+
+  disableNotifications() {
+    //TODO: fill with logic, after implement EnableNotifications
+  }
 }

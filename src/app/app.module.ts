@@ -1,4 +1,4 @@
-import { NgModule, isDevMode } from '@angular/core';
+import { isDevMode, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +19,7 @@ import { NameDialogComponent } from './dialog/name-dialog/name-dialog.component'
 import { StartViewComponent } from './pages/start-view/start-view.component';
 import { CalenderMainComponent } from './pages/calender-main/calender-main.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -46,8 +47,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerWhenStable:30000',
     }),
+    MatMenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

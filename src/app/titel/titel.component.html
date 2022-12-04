@@ -1,1 +1,32 @@
-<h1>Adventskalender {{localCalService.getCurrentYear()}} {{localCalService.getName()}}</h1>
+<div class="d-flex justify-content-between">
+  <h1>
+    Adventskalender {{localCalService.getCurrentYear()}} {{localCalService.getName()}}</h1>
+  <button [matMenuTriggerFor]="menu" mat-icon-button>
+    <mat-icon>keyboard_arrow_down</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu" class="backgroundgray">
+    <button (click)="installApp()" disabled mat-menu-item>
+      <mat-icon>cloud_download</mat-icon>
+      <span>install app</span>
+    </button>
+    <button [matMenuTriggerFor]="submenu" disabled mat-menu-item>
+      <mat-icon>share</mat-icon>
+      <span>share</span>
+    </button>
+    <mat-menu #submenu="matMenu" class="backgroundgray">
+      <button (click)="showLink()" disabled mat-menu-item>
+        <mat-icon>link</mat-icon>
+        <span>copy link</span>
+      </button>
+      <button (click)="showQR()" disabled mat-menu-item>
+        <mat-icon>party_mode</mat-icon>
+        <span>QR-code</span>
+      </button>
+    </mat-menu>
+    <button (click)="disableNotifications()" disabled mat-menu-item>
+      <mat-icon>notifications_off</mat-icon>
+      <span>Disable alerts</span>
+    </button>
+  </mat-menu>
+</div>
+

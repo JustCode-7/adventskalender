@@ -53,6 +53,7 @@ export class CalenderGridComponent implements OnInit {
         this.gridlistcols = '12';
       }
     } else {
+      //TODO: maybe melt in if above
       if (screen.orientation.type === 'landscape-primary') {
         this.rowHeight = '3:1';
         this.gridlistcols = '20';
